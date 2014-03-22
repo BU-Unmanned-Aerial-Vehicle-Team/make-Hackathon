@@ -1,0 +1,8 @@
+prefix=/home/rh/catkin_ws/install
+
+Name: rosserial_msgs
+Description: Description of rosserial_msgs
+Version: 0.4.4
+Cflags: -I/home/rh/catkin_ws/install/include
+Libs: -L/home/rh/catkin_ws/install/lib 
+Requires: message_runtime
