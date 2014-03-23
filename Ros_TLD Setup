@@ -1,0 +1,68 @@
+#working ros opentld with gscam and image_transport
+
+
+#creat folder to ~/catkin_ws/src
+mkdir ~/catkin_ws
+cd catkin_ws
+mkdir src
+cd src
+
+#copy ros_opentld_master to src
+
+#initialize the workspace
+catkin_init_workspace
+
+#catkin make the src
+cd ..
+catkin_make
+
+#rosmake the tld
+cd src
+rosmake --pre-clean ros_opentld
+
+#sourcing
+source ~/catkin_ws/devel/setup.bash
+
+#done setup
+
+
+
+#terminal 1
+roscore & rosrun rqt_gui rqt_gui
+
+
+#terminal 2
+#geting image from camera
+rosrun gscam gscam
+
+#terminal 3
+#republishing gscam topic to im_acq which opentld can recongize
+#since all process are local currently, we use raw for best compatibility
+rosrun image_transport republish  compressed in:=/camera/image_raw out:=/im_acq
+
+#terminal 4
+#start ros opentld gui to get box up the inentited tracking object
+roslaunch tld_tracker ros_tld_gui.launch
+
+#select the target to track and press enter
+
+terminal 5
+#start ros opentld tracking core, so that the result can be published
+roslaunch tld_tracker ros_tld_tracker.launch
+
+
+#optional terminal 6,7,8
+#to print tracking result use:
+rostopic echo /tld_tracked_object
+
+#to print tracking fps use:
+rostopic hz /tld_tracked_object
+
+#to print camera fps use:
+rostopic hz /im_acq
+
+#to print camera bendwidth use:
+rostopic bw /im_acq
+
+
+
