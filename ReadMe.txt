@@ -36,6 +36,8 @@ Common troubleshooting problems and workarounds:--------------------------------
 			Version of OS was probably for another board and does not support the U3. (e.g. Linaro 12.11 for the U2)
 
 
+Note:------------
+If you are running ubuntu, becareful when installing opencv through the package manager as installing the libopencv libraries also installs the nvidia graphic drivers. If your computer doesn't have any compatible graphic cards for those drivers, you will most likely end up with a black screen on your next login. sudo apt-get remove nvidia* should fix it. 
 
 
 Useful Links related to Odriod:
